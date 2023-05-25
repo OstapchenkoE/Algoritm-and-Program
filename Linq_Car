@@ -52,11 +52,13 @@ class Ex{
 
         var Drives = from i in drives
                      where i.Id == num
+                     group i by i.LastName
+                     into i
                      select i;
 
         Console.WriteLine("Водители этой машины");
         foreach(var a in Drives){
-            Console.WriteLine(a.LastName);
+            Console.WriteLine(a.Key);
         }
 
         Console.WriteLine();
@@ -66,12 +68,14 @@ class Ex{
 
         var ch_Drives = from j in drives
                         where j.LastName.Substring(0,1) == ch
+                        group j by j.LastName
+                        into j
                         select j;
 
         Console.WriteLine("Водители ");
         foreach (var b in ch_Drives)
         {
-            Console.WriteLine(b.LastName);
+            Console.WriteLine(b.Key);
         }
 
         Console.ReadKey();
