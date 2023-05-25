@@ -11,12 +11,14 @@ namespace ConsoleApplication14
         public string Name_prodyct { get; set; }
         public bool Gost { get; set; }
         public string ID_prodyct { get; set; }
+        public string ID_org { get; set; }
 
-        public Prodyct(string name,bool gost, string id)
+        public Prodyct(string name,bool gost, string id_prod, string id_org)
         {
             Name_prodyct = name;
             Gost = gost;
-            ID_prodyct = id;
+            ID_prodyct = id_prod;
+            ID_org = id_org;
 
         }
 
@@ -44,15 +46,15 @@ namespace ConsoleApplication14
         public int Count { get; set; }
         public string Data { get; set; }
         public string ID_prodyct { get; set; }
-        public string ID_org { get; set; }
+        //public string ID_org { get; set; }
 
-        public Post(string id, string data, int count, string id_org)
+        public Post(string id, string data, int count) //, string id_org)
         {
             //Name_prodyct = name;
             ID_prodyct = id;
             Data = data;
             Count = count;
-            ID_org = id_org;
+            //ID_org = id_org;
 
         }
     }
@@ -63,10 +65,10 @@ namespace ConsoleApplication14
         static void Main(string[] args)
         {
             Post[] Posts={
-                new Post("id_prodyct", "data_post",100, "id_who_post" ),
-                new Post("001", "22.05",50, "2" ),
-                new Post("012", "28.08", 5, "2" ),
-                new Post("004", "22.05",150, "1" )
+                new Post("id_prodyct", "data_post",100),
+                new Post("001", "22.05",50),
+                new Post("012", "28.08", 5 ),
+                new Post("004", "22.05",150)
             };
 
             Postavchik[] Postavchiks ={
@@ -75,7 +77,69 @@ namespace ConsoleApplication14
                 new Postavchik("Мак и роны", "Маркони В.В.","1" )
             };
 
+            Prodyct[] Prodycts ={
+                new Prodyct("name_prodycta", true,"id_prodycta","id_who_post" ),
+                new Prodyct("Молоко", true,"001","2" ),
+                new Prodyct("Говядина", false,"012","2" ),
+                new Prodyct("Макороны", true,"004", "1" )
+            };
 
+            Console.WriteLine("Выберите дату");
+            var data = Console.ReadLine();
+
+            var q_data = from a in Posts
+                         where a.Data == data
+                         join c in Prodycts
+                         on a.ID_prodyct equals c.ID_prodyct
+                         select new {Name=c.Name_prodyct, Count=a.Count};
+                         
+
+            Console.WriteLine("Поставки в эту дату ");
+            foreach (var a in q_data)
+            {
+                Console.WriteLine("{0} в количестве {1}", a.Name,a.Count);
+            }
+
+
+
+            Console.WriteLine("Выберите поставщика");
+            var postman = Console.ReadLine();
+
+            var q_postman = from a in Postavchiks
+                            where a.Name_org ==postman
+                            join b in Prodycts
+                            on a.ID_org equals b.ID_org
+                            select new {Name=b.Name_prodyct, Who=a.Name_org};
+
+            //foreach (var t in q_postman) Console.WriteLine(t);
+
+            Console.WriteLine();
+            foreach (var t in q_postman)
+            {
+                Console.WriteLine("{0} поставляют {1}", t.Who, t.Name);
+            }
+            
+
+
+            //
+            Console.WriteLine("Выберите товар");
+            var tovar = Console.ReadLine();
+
+            var q_tovar =   from a in Prodycts
+                            where a.Name_prodyct == tovar
+                            join b in Postavchiks
+                            on a.ID_org equals b.ID_org
+                            select new { Name = a.Name_prodyct, Who = b.Name_org };
+
+            //foreach (var t in q_postman) Console.WriteLine(t);
+
+            Console.WriteLine();
+            foreach (var t in q_tovar)
+            {
+                Console.WriteLine("{0} поставляют {1}", t.Name, t.Who);
+            }
+
+            Console.ReadKey();
         }
     }
 }
