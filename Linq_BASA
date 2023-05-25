@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication14
+{
+    class Prodyct
+    {
+        public string Name_prodyct { get; set; }
+        public bool Gost { get; set; }
+        public string ID_prodyct { get; set; }
+
+        public Prodyct(string name,bool gost, string id)
+        {
+            Name_prodyct = name;
+            Gost = gost;
+            ID_prodyct = id;
+
+        }
+
+    }
+
+    class Postavchik
+    {
+        public string Name_org { get; set; }
+        public string Director { get; set; }
+        public string ID_org { get; set; }
+
+        public Postavchik(string name,string dir, string id)
+        {
+            Name_org = name;
+            Director = dir;
+            ID_org = id;
+
+        }
+
+    }
+
+    class Post
+    {
+        //public string Name_prodyct { get; set; }
+        public int Count { get; set; }
+        public string Data { get; set; }
+        public string ID_prodyct { get; set; }
+        public string ID_org { get; set; }
+
+        public Post(string id, string data, int count, string id_org)
+        {
+            //Name_prodyct = name;
+            ID_prodyct = id;
+            Data = data;
+            Count = count;
+            ID_org = id_org;
+
+        }
+    }
+    
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Post[] Posts={
+                new Post("id_prodyct", "data_post",100, "id_who_post" ),
+                new Post("001", "22.05",50, "2" ),
+                new Post("012", "28.08", 5, "2" ),
+                new Post("004", "22.05",150, "1" )
+            };
+
+            Postavchik[] Postavchiks ={
+                new Postavchik("name_org", "name_director","id_org" ),
+                new Postavchik("Молочные Продукты", "Карова К.К.","2" ),
+                new Postavchik("Мак и роны", "Маркони В.В.","1" )
+            };
+
+
+        }
+    }
+}
