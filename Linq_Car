@@ -1,0 +1,79 @@
+using System;
+using System.Linq;
+
+class Car
+{
+    public string NameCar { get; set; }
+    public string Number {get; set;}
+    public int Id { get; set; }
+
+    public Car(string name, string number, int id)
+    {
+        NameCar = name;
+        Number = number;
+        Id = id;
+    }
+}
+
+class Drive
+{
+    public string Name { get; set; }
+    public string LastName { get; set; }
+    public int Id { get; set; }
+
+    public Drive(string name, string lastname, int id)
+    {
+        Name = name;
+        LastName = lastname;
+        Id = id;
+    }
+}
+
+class Ex{
+    static void Main()
+    {
+        Drive[] drives ={
+                       new Drive("Sem","Flance",123),
+                       new Drive("Tod","Regrigo",123),
+                       new Drive("Sara","Duglas",562),
+                       new Drive("Robert","Guoger",789),
+                       new Drive("Roman","Galich",789),
+                       new Drive("Peter","Zulich",562),
+                   };
+
+        Car[] cars ={
+                       new Car("Ford","A555GM",123),
+                       new Car("Волга","В369НЕ",423),
+                       new Car("Lada","B858HP",562),
+                       new Car("BMW","L789JK",789)
+                   };
+        Console.WriteLine("Введите id машины");
+        int num= Convert.ToInt32(Console.ReadLine());
+
+        var Drives = from i in drives
+                     where i.Id == num
+                     select i;
+
+        Console.WriteLine("Водители этой машины");
+        foreach(var a in Drives){
+            Console.WriteLine(a.LastName);
+        }
+
+        Console.WriteLine();
+
+        Console.WriteLine("Введите букву(заглавную)");
+        string ch = Console.ReadLine();
+
+        var ch_Drives = from j in drives
+                        where j.LastName.Substring(0,1) == ch
+                        select j;
+
+        Console.WriteLine("Водители ");
+        foreach (var b in ch_Drives)
+        {
+            Console.WriteLine(b.LastName);
+        }
+
+        Console.ReadKey();
+    }
+}
