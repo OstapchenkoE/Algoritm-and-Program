@@ -1,0 +1,118 @@
+    class Program
+    {
+        delegate double Match(double number_1, double number_2, double number_3);
+        delegate double Opred(double[] numbers);
+
+        static double[] Vvod(){
+            double[] mas=new double[3];
+            Console.WriteLine("Введите первое число:");
+            mas[0] = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Введите второе число:");
+            mas[1] = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Введите третье число:");
+            mas[2] = Convert.ToDouble(Console.ReadLine());
+            return mas;
+        }
+        public static void Menu()
+        {
+            Console.WriteLine("\t\tМеню");
+            Console.WriteLine("1.Сложить");
+            Console.WriteLine("2.Умножить");
+            Console.WriteLine("3.MIN");
+            Console.WriteLine("4.MAX");
+            Console.WriteLine("5.Среднее арифметическое");
+            Console.WriteLine("6.Выход");
+            Console.WriteLine("Введите выбранный номер: ");
+            int n = Convert.ToInt32(Console.ReadLine());
+
+            Match math;
+            Opred op;
+        
+            switch (n)
+            {
+                case 1:
+                    Console.Clear();
+                    math = (x, y, z) => x + y + z;
+                    double[] numbers_1=Vvod();
+                    var result_1 = math(numbers_1[0], numbers_1[1], numbers_1[2]);
+                    Console.WriteLine("\nСумма: "+result_1);
+                    Console.WriteLine("\nДля продолжения нажмите любую клавишу...");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Main();
+                    break;
+                case 2:
+                    Console.Clear();
+                    math = (x, y, z) => x * y * z;
+                    double[] numbers_2=Vvod();
+                    var result_2 = math(numbers_2[0], numbers_2[1], numbers_2[2]);
+                    Console.WriteLine("\nПроизведение: "+result_2);
+                    Console.WriteLine("\nДля продолжения нажмите любую клавишу...");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Main();
+                    break;
+                case 3:
+                    Console.Clear();
+                    double[] numbers_3=Vvod();
+                    op = (num) => num.Min();                    
+                    var result_3 = op(numbers_3);
+                    Console.WriteLine("\nMIN: "+result_3);
+                    Console.WriteLine("\nДля продолжения нажмите любую клавишу...");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Main();
+                    break;
+                case 4:
+                    Console.Clear();
+                    double[] numbers_4=Vvod();
+                    op = (num) => num.Max();
+                    var result_4 = op(numbers_4);
+                    Console.WriteLine("\nMAX: "+result_4);
+                    Console.WriteLine("\nДля продолжения нажмите любую клавишу...");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Main();
+                    break;
+                case 5:
+                    Console.Clear();
+                    double[] numbers=Vvod();
+                    math = (x, y, z) => (x + y + z) / 3;
+                    var result_5 = math(numbers[0], numbers[1], numbers[2]);
+                    Console.WriteLine("\nCреднее арифметическое: "+result_5);
+                    Console.WriteLine("\nДля продолжения нажмите любую клавишу...");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Main();
+                    break;
+                case 6:
+                    Console.Clear();
+                    Console.WriteLine("Досвидание");
+                    End();
+                    break;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("Выбранный номер не указан.");
+                    Console.WriteLine("\nДля продолжения нажмите любую клавишу...");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Main();
+                    break;
+            }
+
+        }
+
+        public static bool rgr=true;
+
+        static void Main()
+        {
+            while (rgr == true)
+            {
+                Menu();
+            }
+
+        }
+
+        static void End() { rgr = false; }
+
+    }
