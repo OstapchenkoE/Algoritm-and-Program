@@ -25,17 +25,18 @@ foreach(var i in ch){
         //close.Push(i);
     }
 }
-//cl.Reverse();
-//if(open.Equals(close)) Console.WriteLine("hh");
-foreach(var t in open){
-    Console.WriteLine(t);
-}
-foreach(var y in cl){
-    Console.WriteLine(y);
-}
+// //cl.Reverse();
+// //if(open.Equals(close)) Console.WriteLine("hh");
+// foreach(var t in open){
+//     Console.WriteLine(t);
+// }
+// foreach(var y in cl){
+//     Console.WriteLine(y);
+// }
 
-Console.WriteLine(R(open,close));
-Console.WriteLine(T(op,cl));
+Console.WriteLine("Проверка стороки: "+str1);
+R(open,close);
+//Console.WriteLine(T(op,cl));
 
 
 static bool R(Stack<char> open,Stack<char> close){
@@ -45,7 +46,7 @@ static bool R(Stack<char> open,Stack<char> close){
         for(int i=0;i<open.Count+1;i++){
             char a=open.Pop();
             char b=close.Pop();
-            Console.WriteLine(a+" 1 "+b);
+            //Console.WriteLine(a+" 1 "+b);
             if(a=='{' && !(a=='{' && b=='}')){
                 Console.WriteLine("Расстановка скобок неправильная 1");
                 f=false;
