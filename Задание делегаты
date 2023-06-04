@@ -1,0 +1,72 @@
+class Prog
+{
+
+    class Car{
+        public string Name {get;set;}
+        public string Color {get;set;}
+        public bool Clear; // {get; set;}
+        public int ID {get;set;}
+
+        public Car(string name,string color,bool clear,int id){
+            Name=name;
+            Color=color;
+            Clear=clear;
+            ID=id;
+        }
+
+    }
+
+
+    class Garaj{
+        public List<Car> Cars; //=new List<T>(); 
+
+        public Garaj(){
+            Cars=new List<Car>();
+        }
+        
+        public void Add(Car car){
+            Cars.Add(car);
+        }
+
+        public void Print(){
+            foreach(Car i in Cars){
+                Console.WriteLine("ID: {3}\tName: {0}\tColor:{1}\tClear: {2}",i.Name,i.Color,i.Clear,i.ID);
+            }
+        }
+
+    }
+
+
+    class Moika{
+        static public Garaj Wased(Garaj gar){
+            ;
+            foreach(Car i in gar.Cars){
+                i.Clear=true;
+                Console.WriteLine("Машина с ID: {0} помыта.",i.ID);
+            }
+            return gar;
+        }
+
+    }
+
+    delegate object Waseds(Garaj i); 
+
+
+    static void Main(){
+        
+
+        Garaj gar=new Garaj();
+
+        gar.Add(new Car("Lada","Purpur",false, 859690));
+        gar.Add(new Car("BMW","Black",false, 998858));
+        gar.Add(new Car("Ford","Red",false, 585520));
+        gar.Add(new Car("Toyota","Blue",false, 785230));        
+
+        gar.Print();
+        Waseds deistvie=new Waseds(Moika.Wased);
+
+        var rez=deistvie(gar);
+        gar.Print();
+        
+        }
+}
