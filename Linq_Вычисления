@@ -1,0 +1,39 @@
+using System.Linq;
+class Prog
+{
+    static void Main(){
+
+        int[] mas={ 5,2,0,-50,20,33 };
+
+        var pol=from i in mas
+                where i>0
+                select i;
+        Console.WriteLine("Положительные: "+Print(pol));
+
+        var otr=from i in mas
+                where i<0
+                select i;
+        Console.WriteLine("Отрицателььные: "+Print(otr));
+
+        var pro=from i in mas
+                where i!=0
+                select i;
+        int pr=1;
+        foreach(var i in pro) pr*=i;
+        Console.WriteLine("Произведениие: "+pr);
+        
+        var sum=from i in mas
+                where i%2==0
+                select i;
+        int s=0;
+        foreach(var i in sum) s+=i;
+        Console.WriteLine("Сумма: "+s);
+    }
+
+    static string Print(IEnumerable<int> mas){
+        string str="";
+        foreach(var i in mas) str+=i+" ";
+        return str;
+    }
+
+}
