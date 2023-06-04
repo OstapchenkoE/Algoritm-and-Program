@@ -1,0 +1,82 @@
+namespace Cobitia{
+delegate void MyEventHandler(double a,double b);
+
+class MyEvent {
+    MyEventHandler[] evnt = new MyEventHandler[4];
+    public event MyEventHandler SomeEvent {
+        // Добавить событие в список.
+        add {
+            int i;
+            for(i=0; i < 4; i++)
+                if(evnt[i] == null) {
+                    evnt[i] = value;
+                    break;
+                }
+            if (i == 4) Console.WriteLine("Список событий заполнен.");
+        }
+        remove {
+            int i;
+            for(i=0; i < 4; i++)
+                if(evnt[i] == value) {
+                    evnt[i] = null;
+                    break;
+                }
+            if (i == 4) Console.WriteLine("Обработчик событий не найден.");
+        }
+    }
+        // Этот метод вызывается для запуска событий.
+    public void OnSomeEvent(double a, double b) {
+        for(int i=0; i < 4; i++)
+            if(evnt[i] != null) evnt[i](a,b);
+    }
+
+}
+
+
+
+class Match{
+        public void Plus(double num1, double num2)
+        {
+            Console.WriteLine(num1 + num2);
+        }
+
+        public void Minyc(double num1, double num2)
+        {
+            Console.WriteLine(num1 - num2);
+        }
+
+        public void Ymnojit(double num1, double num2)
+        {
+            Console.WriteLine(num1 * num2);
+        }
+
+        public void Razdelit(double num1, double num2)
+        {
+            if(num2!=0) Console.WriteLine(num1 / num2);
+            else Console.WriteLine("На ноль делить нельзя");
+        }
+
+}
+
+class Prog{
+    static void Main(){
+        MyEvent evt=new MyEvent();
+        Match d=new Match();
+
+        evt.SomeEvent+=d.Plus;
+        evt.SomeEvent+=d.Minyc;
+        evt.SomeEvent+=d.Ymnojit;
+        evt.SomeEvent+=d.Razdelit;
+
+        Console.WriteLine("Введите первое число a: ");
+        double a=Convert.ToDouble(Console.ReadLine());
+        Console.WriteLine("Введите второе число b: ");
+        double b=Convert.ToDouble(Console.ReadLine());
+        Console.WriteLine();
+
+        evt.OnSomeEvent(a,b);
+
+    }
+
+}
+}
