@@ -1,116 +1,27 @@
-//Console.WriteLine("Введите значение");
-//string str=Console.ReadLine();
-string str1="io(o)pkh{g}rt";
-//string str2="(jo{ffjkjod0]j}k)";
-char[] ch=str1.ToCharArray();
+Console.WriteLine("Введите значение");
+//string str = "([]{})";
+//string str = "(w[d{}er])we";
+//string str = "({ }";
+//string str = "(w[d{er]m}j)we";
+string str=Console.ReadLine();
+char[] ch=str.ToCharArray();
 Stack<char> open=new Stack<char>();
-Queue<char> cl=new Queue<char>();
-Stack<char> close=new Stack<char>();
-Stack<char> op=new Stack<char>(open);
+bool f=true;
 foreach(var i in ch){
-
     if(i=='(' || i=='[' || i=='{' ){
         open.Push(i);
-        //Console.WriteLine("flag");
     }
     if(i=='}' || i==')' || i==']' ){
-        close.Push(i);
-        //cl.Enqueue(i);
-    }
-
-    if(i=='(' || i=='[' || i=='{' || i=='}' || i==')' || i==']' ){
-        op.Push(i);
-        cl.Enqueue(i);
-        //open.Push(i);
-        //close.Push(i);
+        char t=open.Pop();
+        //Console.WriteLine(i+" "+t);
+        if( (i=='}' && t=='{') || (i==')' && t=='(') || (i==']' && t=='[') ){
+            f=true;
+        }     
+        else{
+            f=false;
+            break;
+        }  
     }
 }
-// //cl.Reverse();
-// //if(open.Equals(close)) Console.WriteLine("hh");
-// foreach(var t in open){
-//     Console.WriteLine(t);
-// }
-// foreach(var y in cl){
-//     Console.WriteLine(y);
-// }
-
-Console.WriteLine("Проверка стороки: "+str1);
-R(open,close);
-//Console.WriteLine(T(op,cl));
-
-
-static bool R(Stack<char> open,Stack<char> close){
-    bool f=true;
-    if(open.Count==close.Count){
-        close.Reverse();
-        for(int i=0;i<open.Count+1;i++){
-            char a=open.Pop();
-            char b=close.Pop();
-            //Console.WriteLine(a+" 1 "+b);
-            if(a=='{' && !(a=='{' && b=='}')){
-                Console.WriteLine("Расстановка скобок неправильная 1");
-                f=false;
-                return f;
-            }
-            if(a=='(' && !(a=='(' && b==')')){
-                Console.WriteLine("Расстановка скобок неправильная 2");
-                f=false;
-                return f;
-            }
-            if(a=='[' && !(a=='[' && b==']')){
-                Console.WriteLine("Расстановка скобок неправильная 3");
-                f=false;
-                return f;
-            }
-        }
-
-        if(f) {
-            Console.WriteLine("Расстановка скобок правильная");
-            return f;
-        }
-        else return f;  
-    }
-
-    else{
-        return false;
-    } 
-
-}
-
-static bool T(Stack<char> open,Queue<char> cl){
-    bool f=true;
-    if(open.Count==cl.Count){
-        //cl.Reverse();
-        for(int i=0;i<open.Count+1;i++){
-            char a=open.Pop();
-            char b=cl.Dequeue();
-            Console.WriteLine(a+" 2 "+b);
-            if(a=='{' && !(a=='{' && b=='}')){
-                Console.WriteLine("Расстановка скобок неправильная 1");
-                f=false;
-                return f;
-            }
-            if(a=='(' && !(a=='(' && b==')')){
-                Console.WriteLine("Расстановка скобок неправильная 2");
-                f=false;
-                return f;
-            }
-            if(a=='[' && !(a=='[' && b==']')){
-                Console.WriteLine("Расстановка скобок неправильная 3");
-                f=false;
-                return f;
-            }
-        }
-
-        if(f) {
-            Console.WriteLine("Расстановка скобок правильная");
-            return f;
-        }
-        else return f;  
-    }
-
-    else{
-        return false;
-    } 
-
-}
+if (!f || open.Count>0) Console.WriteLine("Расстановка скобок неправильная");
+else Console.WriteLine("Расстановка скобок правильная");
